@@ -1,12 +1,16 @@
-node('nodejs') {
-    stage('Checkout') {
-        git branch: 'main',
-            url: 'https://github.com/fminamot/do400-pipelines-control'
-    }
-    stage('Backend Tests') {
-        sh 'node ./backend/test.js'
-    }
-    stage('Frontend Tests') {
-        sh 'node ./frontend/test.js'
+
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/RedHatTraining/DO400-apps'
+            }
+    	}
+        stage('Test Word Count') {
+            steps {
+                sh './story-count/test-wc.sh ./story-count/frankenstein.txt 433'
+            }
+        }
     }
 }
