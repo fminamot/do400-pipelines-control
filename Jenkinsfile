@@ -1,14 +1,18 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/RedHatTraining/DO400-apps'
-            }
-    	}
-        stage('Test Word Count') {
-            steps {
-                sh './story-count/test-wc.sh ./story-count/frankenstein.txt 433'
+        stage('Run Tests') {
+            parallel {
+                stage('Backend Tests') {
+                    steps {
+                        sh 'node ./backend/test.js'
+                    }
+                }
+                stage('Frontend Tests') {
+                    steps {
+                        sh 'node ./frontend/test.js'
+                    }
+                }
             }
         }
     }
