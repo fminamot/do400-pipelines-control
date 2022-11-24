@@ -32,7 +32,7 @@ pipeline {
                 message 'Deploy the application?'
             }
             steps {
-                echo 'Step not executed...'
+                echo 'Step not executed...test'
             }
         }
     }
